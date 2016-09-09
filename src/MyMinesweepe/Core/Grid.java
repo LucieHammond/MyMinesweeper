@@ -13,10 +13,11 @@ public class Grid {
 	
 	private int nb_mines;
 
-	public Grid(int rows, int columns) {
+	public Grid(int rows, int columns, int nb_mines) {
 		super();
 		this.rows = rows;
 		this.columns = columns;
+		this.nb_mines = nb_mines;
 		initialize();
 	}
 
@@ -34,6 +35,14 @@ public class Grid {
 
 	public int getColumns() {
 		return columns;
+	}
+
+	public int getNb_mines() {
+		return nb_mines;
+	}
+
+	public void setNb_mines(int nb_mines) {
+		this.nb_mines = nb_mines;
 	}
 
 	public void setColumns(int columns) {
