@@ -83,10 +83,12 @@ public class Square {
 		}
 	}
 	
-	public boolean openSquare(){
+	public boolean open(){
+		if (state == State.Open){return false;}
+		
 		state = State.Open;
 		remainingSquares--;
-		return mine;
+		return (adjacentMines==0);
 	}
 	
 }
