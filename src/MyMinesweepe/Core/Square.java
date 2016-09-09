@@ -85,6 +85,10 @@ public class Square {
 	
 	public boolean open(){
 		if (state == State.Open){return false;}
+		else if (state == State.Flagged){
+			System.out.println("You can't open this square because it has been flagged");
+			return false;
+		}
 		
 		state = State.Open;
 		remainingSquares--;
