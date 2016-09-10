@@ -1,4 +1,4 @@
-package MyMinesweepe.Core;
+package MyMinesweeper.Core;
 
 import java.util.ArrayList;
 import java.util.Collections;

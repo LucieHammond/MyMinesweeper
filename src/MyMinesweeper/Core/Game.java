@@ -1,4 +1,4 @@
-package MyMinesweepe.Core;
+package MyMinesweeper.Core;
 
 import java.util.Calendar;
 import java.util.Timer;
@@ -10,8 +10,8 @@ public class Game {
 	
 	public final static int BEGINNER = 0;
 	public final static int INTERMEDIATE = 1;
-	public final static int EXPERT = 2;
-	public final static int CUSTOM = 3;
+	public final static int ADVANCED = 2;
+	public final static int EXPERT = 3;
 	
 	private int level;
 	
@@ -21,12 +21,6 @@ public class Game {
 		super();
 		this.level = level;
 		initGame(level);
-	}
-	
-	public Game(int rows, int columns, int nb_mines){
-		super();
-		this.level = CUSTOM;
-		myGrid = new Grid(rows, columns, nb_mines);
 	}
 
 	public Grid getMyGrid() {
@@ -53,10 +47,10 @@ public class Game {
 		int rows = 1;
 		int columns = 1;
 		int nb_mines = 1;
-		if(level>=0 && level < 3){
-			int[] possibleRows = {9,9,16};
-			int[] possibleColumns = {9,16,30};
-			int[] possibleMinesNb = {10,40,99};
+		if(level>=0 && level < 4){
+			int[] possibleRows = {9,10,16,16};
+			int[] possibleColumns = {9,12,16,30};
+			int[] possibleMinesNb = {10,20,40,99};
 			rows = possibleRows[level];
 			columns = possibleColumns[level];
 			nb_mines = possibleMinesNb[level];

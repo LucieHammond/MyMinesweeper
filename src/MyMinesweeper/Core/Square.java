@@ -1,4 +1,4 @@
-package MyMinesweepe.Core;
+package MyMinesweeper.Core;
 
 /**
  * @author Lucie
