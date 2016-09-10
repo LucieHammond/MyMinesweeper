@@ -6,7 +6,7 @@ import java.util.TimerTask;
 
 public class Game {
 	
-	private Grid myGrid;
+	private Grid grid;
 	
 	public final static int BEGINNER = 0;
 	public final static int INTERMEDIATE = 1;
@@ -23,8 +23,8 @@ public class Game {
 		initGame(level);
 	}
 
-	public Grid getMyGrid() {
-		return myGrid;
+	public Grid getGrid() {
+		return grid;
 	}
 
 	public int getLevel() {
@@ -58,7 +58,7 @@ public class Game {
 		else{
 			System.out.println("Error : there is no such predefined level");
 		}
-		myGrid = new Grid(rows, columns, nb_mines);
+		grid = new Grid(rows, columns, nb_mines);
 	}
 	
 	public void startCounter(){
@@ -70,16 +70,16 @@ public class Game {
 	}
 
 	public void rightClicOn(int x, int y){
-		myGrid.flagSquare(x, y);
+		grid.flagSquare(x, y);
 	}
 	
 	public void leftClicOn(int x, int y){
 		if(startDate == null){startCounter();}
 		
-		if(!myGrid.openSquare(x, y)){
+		if(!grid.openSquare(x, y)){
 			gameOver();
 		}
-		else if(myGrid.getNb_mines()==Square.getRemainingSquares()){
+		else if(grid.getNb_mines()==Square.getRemainingSquares()){
 			victory();
 		}
 	}

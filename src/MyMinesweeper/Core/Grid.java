@@ -2,6 +2,7 @@ package MyMinesweeper.Core;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class Grid {
 
@@ -52,22 +53,27 @@ public class Grid {
 	public void initialize(){
 		
 		squares = new Square[rows][columns];
-		ArrayList<Integer> random = new ArrayList<Integer>();
-		for (int i = 1; i<= rows*columns ; i++){
+		for (int i=0; i<rows; i++){
+			for(int j = 0; j<columns; j++){
+				squares[i][j] = new Square();
+			}
+		}
+		List<Integer> random = new ArrayList<Integer>();
+		for (int i = 0; i< rows*columns ; i++){
 			random.add(i);
 		}
 		Collections.shuffle(random);
-		random.subList(0, nb_mines);
+		random = random.subList(0, nb_mines);
 		
 		for(int number : random){
-			int r = number%columns;
-			int c = number-r*columns;
+			int r = (int) number/columns;
+			int c = number%columns;
 			squares[r][c].setMine(true);
 			
 			for (int i = -1; i<=1; i++){
 				for(int j = -1; j<=1; j++)
 				{
-					if(i != 0 && j != 0){
+					if(i != 0 && j != 0 && r+i>=0 && r+i <rows && c+j>0 && c+j<columns){
 						squares[r+i][c+j].addAdjacentMine();
 					}
 				}
