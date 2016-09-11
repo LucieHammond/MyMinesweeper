@@ -2,6 +2,7 @@ package MyMinesweeper.GUI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -9,8 +10,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -70,9 +69,17 @@ public class GamePanel extends JPanel implements MouseListener {
 		this.add(smiley,BorderLayout.CENTER);
 		
 		//Counter
-		this.counter = new JLabel("00:00");
-		counter.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 15));
-		this.add(counter, BorderLayout.EAST);
+		counter = new JLabel("00:00");
+		counter.setBorder(BorderFactory.createLoweredBevelBorder());
+		counter.setFont(new Font("Arial", Font.BOLD, 17));
+		counter.setForeground(Color.RED);
+		counter.setPreferredSize(new Dimension(55,25));
+		counter.setHorizontalAlignment(JLabel.CENTER);
+		JPanel counterPanel = new JPanel();
+		counterPanel.setOpaque(false);
+		counterPanel.setBorder(BorderFactory.createEmptyBorder(3, 0, 0, 15));
+		counterPanel.add(counter);
+		this.add(counterPanel, BorderLayout.EAST);
 		
 		//Grid
 		gridPanel = new JPanel(new GridLayout(rows,cols));
@@ -140,6 +147,20 @@ public class GamePanel extends JPanel implements MouseListener {
 		minesInfos.revalidate();
 	}
 	
+	public void updateCounter(int count){
+		count++; // counter in seconds
+		int min = (int) count/60;
+		int sec = count%60;
+		String minText = (min<10) ? "0"+min : String.valueOf(min);
+		String secText = (sec<10) ? "0"+sec : String.valueOf(sec);
+		counter.setText(minText + ":" + secText);
+		System.out.println(counter.getText());
+		JPanel counterPanel = (JPanel) getComponent(2);
+		counterPanel.remove(0);
+		counterPanel.add(counter);
+		counterPanel.repaint();
+	}
+	
 	public void endGame(Boolean hasWon){
 		String image = (hasWon) ? "res/CoolFace.png" : "res/DeadFace.png";
 		smiley = new JLabel(scaleImage(new ImageIcon(image),35,35));
@@ -191,8 +212,6 @@ public class GamePanel extends JPanel implements MouseListener {
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

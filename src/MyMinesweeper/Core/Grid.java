@@ -64,6 +64,7 @@ public class Grid {
 
 	public void initialize(){
 		Square.setRemainingSquares(rows*columns);
+		Square.setNb_flags(0);
 		squares = new Square[rows][columns];
 		for (int i=0; i<rows; i++){
 			for(int j = 0; j<columns; j++){

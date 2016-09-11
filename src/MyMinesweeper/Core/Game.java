@@ -20,13 +20,16 @@ public class Game {
 	
 	private int level;
 	
-	public Calendar startDate;
+	private int counter;
+	
+	private Timer timer;
 	
 	private GamePanel observer;
 
 	public Game(int level) {
 		super();
 		this.level = level;
+		this.counter = 0;
 		initGame(level);
 	}
 
@@ -40,14 +43,6 @@ public class Game {
 
 	public void setLevel(int level) {
 		this.level = level;
-	}
-
-	public Calendar getStartDate() {
-		return startDate;
-	}
-
-	public void setStartDate(Calendar startDate) {
-		this.startDate = startDate;
 	}
 	
 	public GamePanel getObserver() {
@@ -78,10 +73,11 @@ public class Game {
 	
 	public void startCounter(){
 		System.out.println("Game started : Go !");
-		Timer timer = new Timer();
-		startDate = Calendar.getInstance();
-	    timer.schedule(new TimerTask(){ public void run() {} },
-	    		startDate.getTime(),1000);
+		timer = new Timer();
+	    timer.schedule(new TimerTask(){ public void run() {
+	    	counter++;
+	    	observer.updateCounter(counter);}
+	    },Calendar.getInstance().getTime(),1000);
 	}
 
 	public void rightClicOn(int x, int y){
@@ -89,7 +85,7 @@ public class Game {
 	}
 	
 	public void leftClicOn(int x, int y){
-		if(startDate == null){startCounter();}
+		if(counter==0){startCounter();}
 		
 		if(!grid.openSquare(x, y)){
 			gameOver(x,y);
@@ -101,6 +97,7 @@ public class Game {
 	
 	public void gameOver(int x,int y){
 		System.out.println("Game Over : You Loose");
+		timer.cancel();
 		Square[][] squares = grid.getSquares();
 		for(int i=0;i<grid.getRows();i++){
 			for(int j=0;j<grid.getColumns();j++){
@@ -117,6 +114,7 @@ public class Game {
 	
 	public void victory(){
 		System.out.println("Victory : You Win");
+		timer.cancel();
 		observer.endGame(true);
 	}
 }
