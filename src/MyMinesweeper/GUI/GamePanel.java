@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import MyMinesweeper.Core.*;
@@ -128,10 +129,21 @@ public class GamePanel extends JPanel implements MouseListener {
 		gridPanel.revalidate();
 	}
 	
-	public void updateSmiley(Boolean hasWon){
+	public void endGame(Boolean hasWon){
 		String image = (hasWon) ? "res/CoolFace.png" : "res/DeadFace.png";
 		smiley = new JLabel(scaleImage(new ImageIcon(image),35,35));
-		smiley.repaint();
+		this.remove(1);
+		this.add(smiley,BorderLayout.CENTER);
+		repaint();
+		revalidate();
+		
+		String[] choices = {"OK", "Play again"};
+		String message = (hasWon)? "Congratulations ! \nYou win that game !"
+			: "Oops... Game Over ! \nSorry, you loose !";
+		String title = (hasWon) ? "Victory": "Defeat";
+		JOptionPane.showOptionDialog(MainWindow.getSharedInstance(), message,title,
+			        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, 
+			        new ImageIcon(image), choices, choices[0]);
 	}
 	
 	@Override

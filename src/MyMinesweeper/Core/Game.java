@@ -112,11 +112,11 @@ public class Game {
 			}
 		}
 		observer.updateSquare(x,y,10);
-		observer.updateSmiley(false);
+		observer.endGame(false);
 	}
 	
 	public void victory(){
 		System.out.println("Victory : You Win");
-		observer.updateSmiley(true);
+		observer.endGame(true);
 	}
 }
