@@ -29,6 +29,7 @@ public class MainWindow extends JFrame implements ActionListener {
 	private MainWindow() throws HeadlessException {
 		super("Minesweeper");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 	}
 

@@ -114,10 +114,13 @@ public class Grid {
 	
 	public void flagSquare(int x, int y){
 		if(squares[x][y].changeFlag()){
+			//Flag
 			observer.updateSquare(x,y,-1);
 		}else{
+			//DeFlag
 			observer.updateSquare(x,y,-2);
 		}
-		
+		// Update nb of mines in panel
+		observer.updateMines(nb_mines - Square.getNb_flags());
 	}	
 }

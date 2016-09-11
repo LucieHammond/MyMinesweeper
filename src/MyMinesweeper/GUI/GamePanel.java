@@ -2,14 +2,15 @@ package MyMinesweeper.GUI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -54,8 +55,11 @@ public class GamePanel extends JPanel implements MouseListener {
 		
 		//Mines
 		JPanel minesInfos = new JPanel();
+		minesNb = new JLabel(String.valueOf(game.getGrid().getNb_mines()));
+		minesNb.setFont(new Font("Arial",Font.BOLD,21));
+		minesNb.setForeground(Color.DARK_GRAY);
+		minesNb.setBorder(BorderFactory.createEmptyBorder(3, 0 , 0, 0));
 		minesInfos.setBackground(Color.LIGHT_GRAY);
-		this.minesNb = new JLabel(String.valueOf(game.getGrid().getNb_mines()));
 		minesInfos.add(minesNb);
 		minesInfos.add(new JLabel(scaleImage(new ImageIcon("res/Mine.png"),22,22)));
 		minesInfos.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0));
@@ -125,8 +129,15 @@ public class GamePanel extends JPanel implements MouseListener {
 		}
 		gridPanel.remove(i*cols+j);
 		gridPanel.add(squareComponents[i][j],i*cols+j);
-		gridPanel.repaint();
 		gridPanel.revalidate();
+	}
+	
+	public void updateMines(int num){
+		minesNb.setText(String.valueOf(num));
+		JPanel minesInfos = (JPanel) getComponent(0);
+		minesInfos.remove(0);
+		minesInfos.add(minesNb,0);
+		minesInfos.revalidate();
 	}
 	
 	public void endGame(Boolean hasWon){
@@ -134,16 +145,16 @@ public class GamePanel extends JPanel implements MouseListener {
 		smiley = new JLabel(scaleImage(new ImageIcon(image),35,35));
 		this.remove(1);
 		this.add(smiley,BorderLayout.CENTER);
-		repaint();
 		revalidate();
 		
 		String[] choices = {"OK", "Play again"};
 		String message = (hasWon)? "Congratulations ! \nYou win that game !"
 			: "Oops... Game Over ! \nSorry, you loose !";
 		String title = (hasWon) ? "Victory": "Defeat";
-		JOptionPane.showOptionDialog(MainWindow.getSharedInstance(), message,title,
+		int input = JOptionPane.showOptionDialog(MainWindow.getSharedInstance(), message,title,
 			        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, 
 			        new ImageIcon(image), choices, choices[0]);
+		if (input==JOptionPane.NO_OPTION){MainWindow.getSharedInstance().initWindow(game.getLevel());}
 	}
 	
 	@Override
