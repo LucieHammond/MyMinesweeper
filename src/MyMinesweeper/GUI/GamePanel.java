@@ -19,6 +19,10 @@ import javax.swing.JPanel;
 
 import MyMinesweeper.Core.*;
 
+/**
+ * @author Lucie
+ *
+ */
 public class GamePanel extends JPanel implements MouseListener {
 	
 	/**
@@ -62,6 +66,7 @@ public class GamePanel extends JPanel implements MouseListener {
 		minesInfos.add(minesNb);
 		minesInfos.add(new JLabel(scaleImage(new ImageIcon("res/Mine.png"),22,22)));
 		minesInfos.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0));
+		minesInfos.setPreferredSize(new Dimension(75,30));
 		this.add(minesInfos,BorderLayout.WEST);
 		
 		//Smiley

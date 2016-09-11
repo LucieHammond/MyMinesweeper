@@ -6,6 +6,10 @@ import java.util.List;
 
 import MyMinesweeper.GUI.GamePanel;
 
+/**
+ * @author Lucie
+ *
+ */
 public class Grid {
 
 	private Square[][] squares;
@@ -34,24 +38,12 @@ public class Grid {
 		return rows;
 	}
 
-	public void setRows(int rows) {
-		this.rows = rows;
-	}
-
 	public int getColumns() {
 		return columns;
 	}
 
 	public int getNb_mines() {
 		return nb_mines;
-	}
-
-	public void setNb_mines(int nb_mines) {
-		this.nb_mines = nb_mines;
-	}
-
-	public void setColumns(int columns) {
-		this.columns = columns;
 	}
 	
 	public GamePanel getObserver() {

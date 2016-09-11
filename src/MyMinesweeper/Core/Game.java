@@ -4,11 +4,13 @@ import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
 import MyMinesweeper.GUI.GamePanel;
 
+/**
+ * @author Lucie
+ *
+ */
 public class Game {
 	
 	private Grid grid;
@@ -39,14 +41,6 @@ public class Game {
 
 	public int getLevel() {
 		return level;
-	}
-
-	public void setLevel(int level) {
-		this.level = level;
-	}
-	
-	public GamePanel getObserver() {
-		return observer;
 	}
 
 	public void setObserver(GamePanel observer) {

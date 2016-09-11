@@ -1,7 +1,5 @@
 package MyMinesweeper.Core;
 
-import MyMinesweeper.GUI.GamePanel;
-
 /**
  * @author Lucie
  *
@@ -51,16 +49,8 @@ public class Square {
 		return state;
 	}
 
-	public void setState(State state) {
-		this.state = state;
-	}
-
 	public int getAdjacentMines() {
 		return adjacentMines;
-	}
-
-	public void setAdjacentMines(int adjacentMines) {
-		this.adjacentMines = adjacentMines;
 	}
 
 	public static int getNb_flags() {
