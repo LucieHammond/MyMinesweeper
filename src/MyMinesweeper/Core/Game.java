@@ -4,6 +4,9 @@ import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+
 public class Game {
 	
 	private Grid grid;
@@ -77,15 +80,25 @@ public class Game {
 		if(startDate == null){startCounter();}
 		
 		if(!grid.openSquare(x, y)){
-			gameOver();
+			gameOver(x,y);
 		}
 		else if(grid.getNb_mines()==Square.getRemainingSquares()){
 			victory();
 		}
 	}
 	
-	public void gameOver(){
-		System.out.println("Game Over : You Loose");
+	public void gameOver(int x,int y){
+		Square[][] squares = grid.getSquares();
+		for(int i=0;i<grid.getRows();i++){
+			for(int j=0;j<grid.getColumns();j++){
+				if(squares[i][j].isMine()){
+					grid.getObserver().updateSquare(i,j,9);
+				}else if(squares[i][j].getState()==Square.State.Normal){
+					grid.getObserver().updateSquare(i,j,11);
+				}
+			}
+		}
+		grid.getObserver().updateSquare(x,y,10);
 	}
 	
 	public void victory(){

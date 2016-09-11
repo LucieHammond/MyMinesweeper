@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import MyMinesweeper.GUI.GamePanel;
+
 public class Grid {
 
 	private Square[][] squares;
@@ -13,6 +15,8 @@ public class Grid {
 	private int columns;
 	
 	private int nb_mines;
+	
+	private GamePanel observer;
 
 	public Grid(int rows, int columns, int nb_mines) {
 		super();
@@ -50,6 +54,14 @@ public class Grid {
 		this.columns = columns;
 	}
 	
+	public GamePanel getObserver() {
+		return observer;
+	}
+
+	public void setObserver(GamePanel observer) {
+		this.observer = observer;
+	}
+
 	public void initialize(){
 		
 		squares = new Square[rows][columns];
@@ -73,7 +85,7 @@ public class Grid {
 			for (int i = -1; i<=1; i++){
 				for(int j = -1; j<=1; j++)
 				{
-					if(i != 0 && j != 0 && r+i>=0 && r+i <rows && c+j>0 && c+j<columns){
+					if((i != 0 || j != 0) && r+i>=0 && r+i <rows && c+j>=0 && c+j<columns){
 						squares[r+i][c+j].addAdjacentMine();
 					}
 				}
@@ -83,14 +95,16 @@ public class Grid {
 	
 	public boolean openSquare(int x, int y){
 		if (squares[x][y].isMine()){return false;}
-		
-		if(squares[x][y].open())
-		{
-			for (int i = -1; i<=1; i++){
-				for(int j = -1; j<=1; j++)
-				{
-					if(i != 0 && j != 0){
-						openSquare(x+i,y+j);
+		if(squares[x][y].open()){
+			observer.updateSquare(x, y, squares[x][y].getAdjacentMines());
+			if(squares[x][y].getAdjacentMines()==0)
+			{
+				for (int i = -1; i<=1; i++){
+					for(int j = -1; j<=1; j++)
+					{
+						if((i != 0 || j != 0) && x+i>=0 && x+i <rows && y+j>=0 && y+j<columns){
+							openSquare(x+i,y+j);
+						}
 					}
 				}
 			}
@@ -99,6 +113,11 @@ public class Grid {
 	}
 	
 	public void flagSquare(int x, int y){
-		squares[x][y].changeFlag();
+		if(squares[x][y].changeFlag()){
+			observer.updateSquare(x,y,-1);
+		}else{
+			observer.updateSquare(x,y,-2);
+		}
+		
 	}	
 }

@@ -63,7 +63,7 @@ public class MainWindow extends JFrame implements ActionListener {
 	}
 	
 	public static void main(String[] args) {
-		MainWindow.getSharedInstance().initWindow(Game.EXPERT);
+		MainWindow.getSharedInstance().initWindow(Game.BEGINNER);
 	}
 	
 }

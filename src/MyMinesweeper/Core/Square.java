@@ -1,12 +1,14 @@
 package MyMinesweeper.Core;
 
+import MyMinesweeper.GUI.GamePanel;
+
 /**
  * @author Lucie
  *
  */
 public class Square {
 	
-	private static enum State {Normal,Flagged,Open}
+	public static enum State {Normal,Flagged,Open}
 	
 	private State state;
 	
@@ -68,21 +70,22 @@ public class Square {
 	public static void setNb_flags(int nb_flags) {
 		Square.nb_flags = nb_flags;
 	}
-	
-	public void changeFlag(){
+
+	// return true if there is flag and false if not
+	public boolean changeFlag(){
 		if (state == State.Normal){
 			state = State.Flagged;
 			nb_flags++;
-		}
-		else if (state == State.Flagged){
-			state = State.Normal;
-			nb_flags--;
+			return true;
 		}
 		else{
-			System.out.println("Error : you shouldn't be able to access this method is square is open");
+			state = State.Normal;
+			nb_flags--;
+			return false;
 		}
 	}
 	
+	// Return true if square has been opened, so GUI must be updated
 	public boolean open(){
 		if (state == State.Open){return false;}
 		else if (state == State.Flagged){
@@ -92,7 +95,7 @@ public class Square {
 		
 		state = State.Open;
 		remainingSquares--;
-		return (adjacentMines==0);
+		return true;
 	}
 	
 }
