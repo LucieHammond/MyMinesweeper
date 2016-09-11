@@ -11,6 +11,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import MyMinesweeper.Core.Game;
@@ -44,6 +45,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		
 		JPanel options = new JPanel(new FlowLayout(FlowLayout.LEFT,5,10));
 		newGame = new JButton("New Game");
+		newGame.addActionListener(this);
 		options.add(newGame);
 		panel.add(options);
 		
@@ -55,15 +57,24 @@ public class MainWindow extends JFrame implements ActionListener {
 		pack();
 		setVisible(true);
 	}
+	
+	public void newGame(){
+		String[] choices = {"beginner","intermediate","advanced","expert"};
+		String input = (String) JOptionPane.showInputDialog(this,"Please choose a level :",
+				"New Game", JOptionPane.PLAIN_MESSAGE, null ,choices,null);
+		if(input=="beginner"){MainWindow.getSharedInstance().initWindow(Game.BEGINNER);}
+		else if(input=="intermediate"){MainWindow.getSharedInstance().initWindow(Game.INTERMEDIATE);}
+		else if(input=="advanced"){MainWindow.getSharedInstance().initWindow(Game.ADVANCED);}
+		else if(input=="expert"){MainWindow.getSharedInstance().initWindow(Game.EXPERT);}
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+		newGame();
 	}
 	
 	public static void main(String[] args) {
-		MainWindow.getSharedInstance().initWindow(Game.BEGINNER);
+		MainWindow.getSharedInstance().newGame();
 	}
 	
 }
