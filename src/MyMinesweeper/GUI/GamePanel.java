@@ -47,8 +47,9 @@ public class GamePanel extends JPanel implements MouseListener {
 		this.cols = game.getGrid().getColumns();
 		this.game = game;
 		
-		// Initialize Square observer
+		// Initialize Grid and Game observer
 		game.getGrid().setObserver(this);
+		game.setObserver(this);
 		
 		//Mines
 		JPanel minesInfos = new JPanel();
@@ -92,7 +93,7 @@ public class GamePanel extends JPanel implements MouseListener {
 	public void updateSquare(int i, int j, int state){ 
 		//BlackMine = 9, RedMine = 10 Normal = 11
 		String[] images = {"res/Normal.png","res/1.png","res/2.png","res/3.png","res/4.png","res/5.png"
-				,"res/6.png","res/7.png","res/8.png","res/BlackMine.png","res/BlackMine.png"};
+				,"res/6.png","res/7.png","res/8.png","res/BlackMine.png","res/RedMine.png","res/Square.png"};
 		switch (state){
 		case -2://DeFlag
 			squareComponents[i][j] = new JButton(scaleImage(new ImageIcon("res/Square.png"),20,20));
@@ -104,8 +105,8 @@ public class GamePanel extends JPanel implements MouseListener {
 			((JButton) squareComponents[i][j]).addMouseListener(this);
 			squareComponents[i][j].setBorder(BorderFactory.createEmptyBorder());
 			break;
-		case 0:
-		case 1:
+		case 0: 
+		case 1: 
 		case 2:
 		case 3:
 		case 4:
@@ -113,6 +114,9 @@ public class GamePanel extends JPanel implements MouseListener {
 		case 6:
 		case 7:
 		case 8:
+		case 9:
+		case 10:
+		case 11:
 			squareComponents[i][j] = new JLabel(scaleImage(new ImageIcon(images[state]),20,20));
 			break;
 		default:
@@ -122,6 +126,12 @@ public class GamePanel extends JPanel implements MouseListener {
 		gridPanel.add(squareComponents[i][j],i*cols+j);
 		gridPanel.repaint();
 		gridPanel.revalidate();
+	}
+	
+	public void updateSmiley(Boolean hasWon){
+		String image = (hasWon) ? "res/CoolFace.png" : "res/DeadFace.png";
+		smiley = new JLabel(scaleImage(new ImageIcon(image),35,35));
+		smiley.repaint();
 	}
 	
 	@Override

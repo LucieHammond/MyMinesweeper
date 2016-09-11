@@ -7,6 +7,8 @@ import java.util.TimerTask;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import MyMinesweeper.GUI.GamePanel;
+
 public class Game {
 	
 	private Grid grid;
@@ -19,6 +21,8 @@ public class Game {
 	private int level;
 	
 	public Calendar startDate;
+	
+	private GamePanel observer;
 
 	public Game(int level) {
 		super();
@@ -46,6 +50,14 @@ public class Game {
 		this.startDate = startDate;
 	}
 	
+	public GamePanel getObserver() {
+		return observer;
+	}
+
+	public void setObserver(GamePanel observer) {
+		this.observer = observer;
+	}
+
 	public void initGame(int level){
 		int rows = 1;
 		int columns = 1;
@@ -88,20 +100,23 @@ public class Game {
 	}
 	
 	public void gameOver(int x,int y){
+		System.out.println("Game Over : You Loose");
 		Square[][] squares = grid.getSquares();
 		for(int i=0;i<grid.getRows();i++){
 			for(int j=0;j<grid.getColumns();j++){
 				if(squares[i][j].isMine()){
-					grid.getObserver().updateSquare(i,j,9);
+					observer.updateSquare(i,j,9);
 				}else if(squares[i][j].getState()==Square.State.Normal){
-					grid.getObserver().updateSquare(i,j,11);
+					observer.updateSquare(i,j,11);
 				}
 			}
 		}
-		grid.getObserver().updateSquare(x,y,10);
+		observer.updateSquare(x,y,10);
+		observer.updateSmiley(false);
 	}
 	
 	public void victory(){
 		System.out.println("Victory : You Win");
+		observer.updateSmiley(true);
 	}
 }
