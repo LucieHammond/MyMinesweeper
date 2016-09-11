@@ -16,9 +16,9 @@ public class Square {
 	
 	private int adjacentMines;
 	
-	private static int nb_flags = 0;
+	private static int nb_flags;
 	
-	private static int remainingSquares = 0;
+	private static int remainingSquares;
 	
 	public Square(){
 		super();

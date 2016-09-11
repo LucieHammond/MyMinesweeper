@@ -104,8 +104,9 @@ public class GamePanel extends JPanel implements MouseListener {
 	
 	public void updateSquare(int i, int j, int state){ 
 		//BlackMine = 9, RedMine = 10 Normal = 11
-		String[] images = {"res/Normal.png","res/1.png","res/2.png","res/3.png","res/4.png","res/5.png"
-				,"res/6.png","res/7.png","res/8.png","res/BlackMine.png","res/RedMine.png","res/Square.png"};
+		String[] images = {"res/Normal.png","res/1.png","res/2.png","res/3.png","res/4.png",
+				"res/5.png","res/6.png","res/7.png","res/8.png","res/BlackMine.png",
+				"res/RedMine.png","res/Square.png","res/Flag.png"};
 		switch (state){
 		case -2://DeFlag
 			squareComponents[i][j] = new JButton(scaleImage(new ImageIcon("res/Square.png"),20,20));
@@ -129,6 +130,7 @@ public class GamePanel extends JPanel implements MouseListener {
 		case 9:
 		case 10:
 		case 11:
+		case 12:
 			squareComponents[i][j] = new JLabel(scaleImage(new ImageIcon(images[state]),20,20));
 			break;
 		default:

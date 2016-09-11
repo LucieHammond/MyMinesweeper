@@ -105,6 +105,8 @@ public class Game {
 					observer.updateSquare(i,j,9);
 				}else if(squares[i][j].getState()==Square.State.Normal){
 					observer.updateSquare(i,j,11);
+				}else if(squares[i][j].getState()==Square.State.Flagged){
+					observer.updateSquare(i,j,12);
 				}
 			}
 		}
